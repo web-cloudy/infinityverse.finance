@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="theme-color" content="#000000" />
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Infinity Verse Token - Presale</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta2/css/all.css">
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <script>
+    window.addEventListener('load', () => {
+      const html = document.querySelector('html');
+      const readMoreBtn = document.querySelector('.read-more-area');
+        const backBtn = document.querySelector('.back-section');
+        readMoreBtn.addEventListener('click', () => {
+            const container = document.querySelector('.container');
+            const documents = document.querySelector('.documents');
+            documents.style.display = 'block';
+            requestAnimationFrame(function scroll() {
+                if (html.scrollTop <= documents.offsetHeight - 1) {
+                    html.scrollTop += (window.innerHeight + 10 - html.scrollTop) / 8;
+                    requestAnimationFrame(scroll);
+                } else
+                    container.style.display = 'none';
+            });
+        });
+        backBtn.addEventListener('click', () => {
+            const container = document.querySelector('.container');
+            const documents = document.querySelector('.documents');
+            container.style.display = 'flex';
+            html.scrollTop = window.innerHeight;
+            requestAnimationFrame(function scroll() {
+                if (html.scrollTop > 0) {
+                    html.scrollTop -= (html.scrollTop) / 8;
+                    requestAnimationFrame(scroll);
+                } else
+                    documents.style.display = 'none';
+            });
+        });
+
+        // timer configuration
+        requestAnimationFrame(function countdown() {
+            const d = new Date();
+            const now = Date.parse(d.toLocaleString('en-US', { timeZone: 'Israel' }));
+            const endDate = Date.parse('11/22/2021 00:00:00');
+            const distance = Math.max(0, endDate - now);
+            const timeLeft = new Date(distance);
+            const timer = document.querySelector('.timer');
+            let dayNum = timeLeft.getUTCDate() - 1;
+            dayNum = dayNum <= 9 ? '0' + dayNum : dayNum;
+            let hours = timeLeft.getUTCHours();
+            hours = hours <= 9 ? '0' + hours : hours;
+            let minutes = timeLeft.getUTCMinutes();
+            minutes = minutes <= 9 ? '0' + minutes : minutes;
+            let seconds = timeLeft.getUTCSeconds();
+            seconds = seconds <= 9 ? '0' + seconds : seconds;
+
+            // timer.innerHTML = dayNum + ':' + hours + ':' + minutes + ':' + seconds;
+            if (distance > 0)
+                requestAnimationFrame(countdown);
+            else {
+                // const buyBtn = document.querySelector('#buy');
+                // buyBtn.removeAttribute('disabled');
+                // buyBtn.addEventListener('click', () => {
+                //     // window.location.href = 'https://traderjoexyz.com/#/trade';
+                // });
+                // timer.style.opacity = 0.5;
+                // timer.style.transform = 'scale(0.85)';
+            }    
+        });
+    });
+  </script>
+  <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+</body>
+
+</html>
